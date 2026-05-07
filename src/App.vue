@@ -1,11 +1,13 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it! 第一次測試 2026.04.09</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div id="app">
+    <!-- 這裡可以放導覽列 Navigation -->
+    <nav>
+      <router-link to="/home">首頁</router-link>
+    </nav>
+
+    <!-- 這個標籤才是真正顯示 Home.vue 內容的地方 -->
+    <RouterView /> 
+  </div>
 </template>
 
 <style scoped></style>
