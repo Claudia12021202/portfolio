@@ -12,6 +12,10 @@ const router = createRouter({
       path: '/case-study/ai100',
       name: 'CaseStudyAi100',
       component: () => import('../views/CaseStudyAi100.vue')
+    },{
+      path: '/pages/ai100',
+      name: 'PageAi100',
+      component: () => import('../views/PageAi100.vue')
     }
 
   ],

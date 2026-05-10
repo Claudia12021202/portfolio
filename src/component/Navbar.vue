@@ -3,9 +3,8 @@
     <div class="navbar-container">
       <router-link to="/" class="nav-link">首頁</router-link>
       <router-link to="/case-study/ai100" class="nav-link">ai100</router-link>
-      <router-link to="/portfolio2" class="nav-link">作品集2</router-link>
-      <router-link to="/about" class="nav-link">關於我</router-link>
-      <router-link to="/contact" class="nav-link">聯絡我</router-link>
+      <router-link to="/pages/ai100" class="nav-link">pages_ai</router-link>
+      <!-- <router-link to="/about" class="nav-link">關於我</router-link> -->
     </div>
   </nav>
 </template>
