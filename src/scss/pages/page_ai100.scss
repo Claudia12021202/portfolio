@@ -1,0 +1,226 @@
+// ╔══════════════════════════════════════════════════════╗
+// ║  AI100 Case Study — 品牌配色                         ║
+// ║  主色  #efe8e6  副色  #5e2337  跳色  #c9a96e         ║
+// ║  使用方式：在 CaseStudyAi100.vue 的 <style> 最頂端   ║
+// ║  加上 @import '../scss/page_ai100.scss';              ║
+// ╚══════════════════════════════════════════════════════╝
+
+// ── Token ────────────────────────────────────────────
+$cream    : #efe8e6;   // 主色（背景、米粉）
+$wine     : #5e2337;   // 副色（深酒紅）
+$gold     : #c9a96e;   // 跳色（舊金）
+
+$cream-dk : #e0d5d1;   // 主色加深版，用於 hover / border
+$wine-lt  : #8c3a52;   // 副色亮版，用於 hover
+$wine-bg  : #f5edef;   // 副色極淡，用於區塊底色
+$text-main: #2a1219;   // 近黑但帶酒紅底調，比純黑更協調
+$text-mute: #7a5a62;   // 中調，用於次要文字
+
+// ── 覆寫 .cs-page 的 CSS 變數 ─────────────────────────
+// 直接用更高優先度的選擇器蓋掉 scoped 裡的預設灰色
+// 注意：因為 Vue scoped 會加 data-v hash，這裡用 :deep() 或
+// 直接在 .vue 外層的 global scss import 都可以運作
+
+.cs-page {
+  // 品牌色取代灰色系
+  --cs-black : #{$text-main};
+  --cs-g800  : #{$text-main};
+  --cs-g700  : #{darken($text-mute, 5%)};
+  --cs-g600  : #{$text-mute};
+  --cs-g400  : #{lighten($text-mute, 15%)};
+  --cs-g300  : #{$cream-dk};
+  --cs-g200  : #{mix($cream, $cream-dk, 50%)};
+  --cs-g100  : #{mix($cream, #fff, 60%)};
+  --cs-g50   : #{mix($cream, #fff, 30%)};
+  --cs-white : #fff;
+
+  // 背景換成主色
+  background: $cream;
+
+  // ── NAVBAR OFFSET ──────────────────────────────────
+  .cs-nav-offset {
+    height: 60px; // 配合下面 Navbar 的新高度
+  }
+
+  // ── HERO ───────────────────────────────────────────
+  .cs-hero {
+    background: $cream;
+    padding: 5rem 0 6rem;
+  }
+
+  .cs-kicker {
+    color: $wine;
+    letter-spacing: 0.16em;
+
+    &::before {
+      background: $gold;
+      width: 32px;
+    }
+  }
+
+  .cs-h1 em {
+    color: $wine;
+    font-style: italic;
+  }
+
+  .cs-pill {
+    background: $wine-bg;
+    color: $wine;
+    border: 1px solid mix($wine, $cream, 20%);
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      background: $wine;
+      color: $cream;
+    }
+  }
+
+  // ── SECTION ────────────────────────────────────────
+  .cs-section {
+    background: $cream;
+    border-top-color: $cream-dk;
+  }
+
+  // ── SECTION HEADER ─────────────────────────────────
+  .cs-sec-num {
+    color: $gold;
+    font-weight: 500;
+  }
+
+  .cs-sec-title small {
+    color: $text-mute;
+  }
+
+  // ── THINK CARD ─────────────────────────────────────
+  .cs-think {
+    border-left-color: $wine;
+    background: $wine-bg;
+
+    .cs-think-lbl {
+      color: $wine;
+    }
+  }
+
+  // ── OVERVIEW CARD ──────────────────────────────────
+  .cs-ov-card {
+    border-color: $cream-dk;
+    background: #fff;
+
+    &:hover {
+      border-color: $wine;
+    }
+  }
+
+  .cs-ov-thumb {
+    background: mix($cream, #fff, 50%);
+    border-bottom-color: $cream-dk;
+  }
+
+  // badge 深色 = 酒紅
+  .cs-badge {
+    background: $wine;
+    color: $cream;
+
+    &.light {
+      background: $wine-bg;
+      color: $wine;
+    }
+  }
+
+  // ── CROSS NOTE ─────────────────────────────────────
+  .cs-cross {
+    background: $wine-bg;
+    border-left: 2px solid $gold;
+    border-radius: 0 6px 6px 0;
+
+    strong { color: $wine; }
+  }
+
+  // ── DECISION ───────────────────────────────────────
+  .cs-di {
+    border-bottom-color: $cream-dk;
+  }
+
+  .cs-di-tag {
+    color: $gold;
+    letter-spacing: 0.14em;
+  }
+
+  .cs-brief {
+    background: mix($cream, #fff, 70%);
+    border-left: 2px solid $cream-dk;
+    border-radius: 0 4px 4px 0;
+    color: $text-mute;
+
+    strong { color: $text-main; }
+  }
+
+  .cs-verdict strong {
+    color: $wine;
+  }
+
+  // chip 預設 / key 強調
+  .cs-chip {
+    border-color: $cream-dk;
+    color: $text-mute;
+
+    &.key {
+      color: $wine;
+      border-color: $wine;
+      background: $wine-bg;
+      font-weight: 500;
+    }
+  }
+
+  // ── IMAGE PLACEHOLDER ──────────────────────────────
+  .cs-ph {
+    background: mix($cream, #fff, 60%);
+    border-color: $cream-dk;
+    color: $text-mute;
+
+    &:hover {
+      background: $cream-dk;
+    }
+  }
+
+  // ── DS CARD ────────────────────────────────────────
+  .cs-ds-card {
+    border-color: $cream-dk;
+    background: #fff;
+  }
+
+  .cs-ds-hd {
+    background: mix($cream, #fff, 40%);
+    border-bottom-color: $cream-dk;
+    color: $wine;
+    letter-spacing: 0.1em;
+  }
+
+  // ── HR ─────────────────────────────────────────────
+  .cs-hr {
+    border-top-color: $cream-dk;
+  }
+
+  // ── CODE BLOCK ─────────────────────────────────────
+  // 把深灰底改成深酒紅底，更有品牌感
+  .cs-code {
+    background: darken($wine, 8%);
+    color: mix($cream, #fff, 80%);
+    border-radius: 8px;
+  }
+
+  .cs-cc { color: mix($wine, $cream, 40%); }
+  .cs-ck { color: $gold; font-weight: 500; }
+
+  // ── RWD label ──────────────────────────────────────
+  .cs-rwd-lbl {
+    strong { color: $wine; }
+    span   { color: $text-mute; }
+  }
+
+  // ── lbl-sm ─────────────────────────────────────────
+  .cs-lbl-sm {
+    color: $gold;
+    letter-spacing: 0.1em;
+  }
+}

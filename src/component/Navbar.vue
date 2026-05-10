@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar-container">
       <router-link to="/" class="nav-link">首頁</router-link>
-      <router-link to="/portfolio1" class="nav-link">作品集1</router-link>
+      <router-link to="/case-study/ai100" class="nav-link">ai100</router-link>
       <router-link to="/portfolio2" class="nav-link">作品集2</router-link>
       <router-link to="/about" class="nav-link">關於我</router-link>
       <router-link to="/contact" class="nav-link">聯絡我</router-link>
@@ -18,38 +18,61 @@ export default {
 
 <style scoped>
 .navbar {
-  background-color: #333;
-  padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 60px;
+  background: rgba(239, 232, 230, 0.92); /* #efe8e6 主色 + 透明 */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid #e0d5d1;
 }
 
 .navbar-container {
   max-width: 1200px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  padding: 0 1rem;
+  gap: 0.25rem;
+  padding: 0 1.5rem;
 }
 
 .nav-link {
-  color: #fff;
+  color: #5e2337; /* 副色酒紅 */
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 13px;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 1rem;
   border-radius: 4px;
-  transition: all 0.3s ease;
+  transition: background 0.2s, color 0.2s;
+  position: relative;
 }
 
+/* hover — 極淡酒紅底 */
 .nav-link:hover {
-  background-color: #555;
-  transform: translateY(-2px);
+  background: rgba(94, 35, 55, 0.08);
+  color: #5e2337;
 }
 
+/* active — 跳色金色底線 */
 .nav-link.router-link-active {
-  background-color: #007bff;
-  color: #fff;
+  color: #5e2337;
+  background: transparent;
+}
+
+.nav-link.router-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background: #c9a96e; /* 跳色舊金 */
+  border-radius: 1px;
 }
 </style>
