@@ -222,7 +222,7 @@
 /* ── OVERVIEW ── */
 .cs-overview-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-bottom: 1.5rem;
 }
@@ -244,7 +244,7 @@
 }
 
 .cs-ov-thumb {
-  height: 100px;
+  height: 200px;
   background: var(--cs-g100);
   display: flex;
   align-items: center;
@@ -647,6 +647,24 @@
   border-top: 1px solid var(--cs-g200);
   margin: 3rem 0;
   border-top-color: #e0d5d1;
+}
+
+/* ── HERO IMAGE ── */
+.cs-hero-img {
+  position: absolute;
+  top: 50%;
+  right: -250px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.cs-visual {
+  width: 100%;
+}
+.cs-visual img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 /* ── RESPONSIVE ── */
