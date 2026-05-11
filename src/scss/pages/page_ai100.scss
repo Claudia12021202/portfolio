@@ -1,8 +1,6 @@
 // ╔══════════════════════════════════════════════════════╗
-// ║  AI100 Case Study — 品牌配色                         ║
-// ║  主色  #efe8e6  副色  #5e2337  跳色  #c9a96e         ║
-// ║  使用方式：在 CaseStudyAi100.vue 的 <style> 最頂端   ║
-// ║  加上 @import '../scss/page_ai100.scss';              ║
+// ║  AI100 Case Study — 完整樣式                         ║
+// ║  從 CaseStudyAi100.vue 整理而來                      ║
 // ╚══════════════════════════════════════════════════════╝
 
 // ── Token ────────────────────────────────────────────
@@ -16,13 +14,28 @@ $wine-bg  : #f5edef;   // 副色極淡，用於區塊底色
 $text-main: #2a1219;   // 近黑但帶酒紅底調，比純黑更協調
 $text-mute: #7a5a62;   // 中調，用於次要文字
 
-// ── 覆寫 .cs-page 的 CSS 變數 ─────────────────────────
-// 直接用更高優先度的選擇器蓋掉 scoped 裡的預設灰色
-// 注意：因為 Vue scoped 會加 data-v hash，這裡用 :deep() 或
-// 直接在 .vue 外層的 global scss import 都可以運作
+// ── 所有 class 加 cs- 前綴，避免與現有樣式衝突 ──
 
+/* tokens */
 .cs-page {
-  // 品牌色取代灰色系
+  --cs-black: #0f0f0f;
+  --cs-g800:  #1a1a1a;
+  --cs-g700:  #2c2c2c;
+  --cs-g600:  #555;
+  --cs-g400:  #888;
+  --cs-g300:  #bbb;
+  --cs-g200:  #e2e2e2;
+  --cs-g100:  #f2f2f2;
+  --cs-g50:   #f8f8f8;
+  --cs-white: #fff;
+  --cs-en: 'DM Sans', sans-serif;
+  --cs-zh: 'Noto Sans TC', sans-serif;
+  font-family: var(--cs-zh);
+  color: var(--cs-black);
+  background: var(--cs-white);
+  line-height: 1.7;
+
+  // 品牌色覆寫
   --cs-black : #{$text-main};
   --cs-g800  : #{$text-main};
   --cs-g700  : #{darken($text-mute, 5%)};
@@ -32,196 +45,664 @@ $text-mute: #7a5a62;   // 中調，用於次要文字
   --cs-g200  : #{mix($cream, $cream-dk, 50%)};
   --cs-g100  : #{mix($cream, #fff, 60%)};
   --cs-g50   : #{mix($cream, #fff, 30%)};
-  --cs-white : #fff;
-
-  // 背景換成主色
   background: $cream;
+}
 
-  // ── NAVBAR OFFSET ──────────────────────────────────
-  .cs-nav-offset {
-    height: 60px; // 配合下面 Navbar 的新高度
+/* nav offset (配合你的固定 Navbar 高度調整) */
+.cs-nav-offset { 
+  height: 56px;
+}
+
+/* container */
+.cs-container { 
+  max-width: 860px; 
+  margin: 0 auto; 
+  padding: 0 2rem; 
+}
+
+/* sections */
+.cs-hero { 
+  padding: 4rem 0 5rem;
+  background: $cream;
+}
+
+.cs-section { 
+  padding: 5.5rem 0; 
+  border-top: 1px solid var(--cs-g200);
+  background: $cream;
+  border-top-color: $cream-dk;
+}
+
+/* fade */
+.cs-fade { 
+  opacity: 0; 
+  transform: translateY(14px); 
+  transition: opacity .5s ease, transform .5s ease; 
+}
+
+.cs-fade.cs-visible { 
+  opacity: 1; 
+  transform: none; 
+}
+
+/* ── HERO ── */
+.cs-kicker {
+  font-family: var(--cs-en); 
+  font-size: 11px; 
+  font-weight: 500;
+  letter-spacing: .12em; 
+  text-transform: uppercase; 
+  color: var(--cs-g400);
+  margin-bottom: 1.5rem; 
+  display: flex; 
+  align-items: center; 
+  gap: .75rem;
+  color: $wine;
+  letter-spacing: 0.16em;
+
+  &::before { 
+    content: ''; 
+    display: block; 
+    width: 24px; 
+    height: 1px; 
+    background: var(--cs-g300);
+    background: $gold;
+    width: 32px;
   }
+}
 
-  // ── HERO ───────────────────────────────────────────
-  .cs-hero {
-    background: $cream;
-    padding: 5rem 0 6rem;
+.cs-h1 {
+  font-family: var(--cs-en); 
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  font-weight: 300; 
+  line-height: 1.1; 
+  letter-spacing: -.025em; 
+  margin-bottom: .5rem;
 
-  }
-
-  .cs-kicker {
+  em { 
+    font-style: italic; 
+    color: var(--cs-g400);
     color: $wine;
-    letter-spacing: 0.16em;
-
-    &::before {
-      background: $gold;
-      width: 32px;
-    }
   }
+}
 
-  .cs-h1 em {
-    color: $wine;
-    font-style: italic;
-  }
+.cs-sub { 
+  font-size: 15px; 
+  color: var(--cs-g600); 
+  max-width: 480px; 
+  margin: 1.25rem 0 2rem; 
+  line-height: 1.75; 
+}
 
-  .cs-pill {
-    background: $wine-bg;
-    color: $wine;
-    border: 1px solid mix($wine, $cream, 20%);
-    transition: background 0.2s, color 0.2s;
+.cs-meta-row { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 2rem; 
+  margin-bottom: 2.5rem; 
+}
 
-    &:hover {
-      background: $wine;
-      color: $cream;
-    }
-  }
+.cs-meta-label { 
+  font-family: var(--cs-en); 
+  font-size: 10px; 
+  letter-spacing: .1em; 
+  text-transform: uppercase; 
+  color: var(--cs-g400); 
+  margin-bottom: 4px; 
+}
 
-  // ── SECTION ────────────────────────────────────────
-  .cs-section {
-    background: $cream;
-    border-top-color: $cream-dk;
-  }
+.cs-meta-value { 
+  font-size: 13px; 
+  color: var(--cs-g700); 
+}
 
-  // ── SECTION HEADER ─────────────────────────────────
-  .cs-sec-num {
-    color: $gold;
-    font-weight: 500;
-  }
+.cs-pill-row { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 6px; 
+}
 
-  .cs-sec-title small {
-    color: $text-mute;
-  }
+.cs-pill { 
+  font-size: 11px; 
+  color: var(--cs-g600); 
+  background: var(--cs-g100); 
+  padding: 4px 12px; 
+  border-radius: 100px;
+  background: $wine-bg;
+  color: $wine;
+  border: 1px solid mix($wine, $cream, 20%);
+  transition: background 0.2s, color 0.2s;
 
-  // ── THINK CARD ─────────────────────────────────────
-  .cs-think {
-    border-left-color: $wine;
-    background: $wine-bg;
-
-    .cs-think-lbl {
-      color: $wine;
-    }
-  }
-
-  // ── OVERVIEW CARD ──────────────────────────────────
-  .cs-ov-card {
-    border-color: $cream-dk;
-    background: #fff;
-
-    &:hover {
-      border-color: $wine;
-    }
-  }
-
-  .cs-ov-thumb {
-    background: mix($cream, #fff, 50%);
-    border-bottom-color: $cream-dk;
-  }
-
-  // badge 深色 = 酒紅
-  .cs-badge {
+  &:hover {
     background: $wine;
     color: $cream;
+  }
+}
 
-    &.light {
-      background: $wine-bg;
-      color: $wine;
-    }
+/* ── SECTION HEADER ── */
+.cs-sec-hd { 
+  display: grid; 
+  grid-template-columns: 64px 1fr; 
+  gap: 1.5rem; 
+  margin-bottom: 3.5rem; 
+}
+
+.cs-sec-num { 
+  font-family: var(--cs-en); 
+  font-size: 11px; 
+  color: var(--cs-g400); 
+  letter-spacing: .08em; 
+  padding-top: 5px;
+  color: $gold;
+  font-weight: 500;
+}
+
+.cs-sec-title { 
+  font-family: var(--cs-en); 
+  font-size: 1.6rem; 
+  font-weight: 300; 
+  letter-spacing: -.01em;
+
+  small { 
+    display: block; 
+    font-family: var(--cs-zh); 
+    font-size: 13px; 
+    font-weight: 400; 
+    color: var(--cs-g600); 
+    margin-top: 4px; 
+    letter-spacing: 0;
+    color: $text-mute;
+  }
+}
+
+/* ── THINK CARD ── */
+.cs-think { 
+  border-left: 2px solid var(--cs-black); 
+  padding: 1.25rem 1.5rem; 
+  background: var(--cs-g50); 
+  border-radius: 0 6px 6px 0; 
+  margin-bottom: 2.5rem;
+  border-left-color: $wine;
+  background: $wine-bg;
+}
+
+.cs-think-lbl { 
+  font-family: var(--cs-en); 
+  font-size: 9px; 
+  font-weight: 500; 
+  letter-spacing: .14em; 
+  text-transform: uppercase; 
+  color: var(--cs-g400); 
+  margin-bottom: .5rem;
+  color: $wine;
+}
+
+.cs-think p { 
+  font-size: 14px; 
+  color: var(--cs-g700); 
+  line-height: 1.8; 
+}
+
+/* ── OVERVIEW ── */
+.cs-overview-grid { 
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 10px; 
+  margin-bottom: 1.5rem; 
+}
+
+.cs-ov-card { 
+  border: 1px solid var(--cs-g200); 
+  border-radius: 6px; 
+  overflow: hidden; 
+  transition: border-color .2s;
+  border-color: $cream-dk;
+  background: #fff;
+
+  &.dashed { 
+    border-style: dashed; 
   }
 
-  // ── CROSS NOTE ─────────────────────────────────────
-  .cs-cross {
+  &:hover { 
+    border-color: var(--cs-g400);
+    border-color: $wine;
+  }
+}
+
+.cs-ov-thumb { 
+  height: 100px; 
+  background: var(--cs-g100); 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  border-bottom: 1px solid var(--cs-g200); 
+  position: relative; 
+  overflow: hidden; 
+  cursor: pointer;
+  background: mix($cream, #fff, 50%);
+  border-bottom-color: $cream-dk;
+
+  &.transparent { 
+    background: transparent; 
+  }
+
+  img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+  }
+
+  input[type='file'] { 
+    position: absolute; 
+    inset: 0; 
+    opacity: 0; 
+    cursor: pointer; 
+    font-size: 0; 
+  }
+}
+
+.cs-ov-icon { 
+  font-size: 20px; 
+  opacity: .3; 
+}
+
+.cs-ov-placeholder { 
+  font-size: 11px; 
+  color: var(--cs-g400); 
+  text-align: center; 
+  padding: 0 1rem; 
+}
+
+.cs-ov-meta { 
+  padding: 8px 10px;
+
+  p { 
+    font-family: var(--cs-en); 
+    font-size: 11px; 
+    font-weight: 500; 
+    color: var(--cs-g700); 
+  }
+
+  span { 
+    font-size: 10px; 
+    color: var(--cs-g400); 
+  }
+}
+
+.cs-badge { 
+  display: inline-block; 
+  font-size: 9px; 
+  letter-spacing: .06em; 
+  text-transform: uppercase; 
+  padding: 2px 6px; 
+  border-radius: 3px; 
+  background: var(--cs-g800); 
+  color: var(--cs-white); 
+  margin-bottom: 4px;
+  background: $wine;
+  color: $cream;
+
+  &.light { 
+    background: var(--cs-g100); 
+    color: var(--cs-g600);
     background: $wine-bg;
-    border-left: 2px solid $gold;
-    border-radius: 0 6px 6px 0;
+    color: $wine;
+  }
+}
 
-    strong { color: $wine; }
+/* ── CROSS NOTE ── */
+.cs-cross { 
+  display: flex; 
+  align-items: flex-start; 
+  gap: 1rem; 
+  background: var(--cs-g50); 
+  border-radius: 6px; 
+  padding: 1rem 1.25rem; 
+  margin-bottom: 1rem;
+  background: $wine-bg;
+  border-left: 2px solid $gold;
+  border-radius: 0 6px 6px 0;
+}
+
+.cs-cross-ic { 
+  font-size: 16px; 
+  flex-shrink: 0; 
+  margin-top: 2px; 
+}
+
+.cs-cross p { 
+  font-size: 13px; 
+  color: var(--cs-g600); 
+  line-height: 1.75; 
+}
+
+.cs-cross strong { 
+  color: var(--cs-black); 
+  font-weight: 500;
+  color: $wine;
+}
+
+/* ── DECISION ── */
+.cs-decision-list { 
+  display: flex; 
+  flex-direction: column; 
+}
+
+.cs-di { 
+  display: grid; 
+  grid-template-columns: 188px 1fr; 
+  gap: 2rem; 
+  padding: 2.25rem 0; 
+  border-bottom: 1px solid var(--cs-g200);
+  border-bottom-color: $cream-dk;
+
+  &:first-child { 
+    padding-top: 0; 
   }
 
-  // ── DECISION ───────────────────────────────────────
-  .cs-di {
-    border-bottom-color: $cream-dk;
+  &:last-child { 
+    border-bottom: none; 
+  }
+}
+
+.cs-di-tag { 
+  font-family: var(--cs-en); 
+  font-size: 9px; 
+  letter-spacing: .12em; 
+  text-transform: uppercase; 
+  color: var(--cs-g400); 
+  margin-bottom: 5px;
+  color: $gold;
+  letter-spacing: 0.14em;
+}
+
+.cs-di-page { 
+  font-size: 11px; 
+  color: var(--cs-g400); 
+  margin-bottom: 8px; 
+}
+
+.cs-di-title { 
+  font-size: 14px; 
+  font-weight: 500; 
+  color: var(--cs-black); 
+  line-height: 1.45; 
+}
+
+.cs-brief { 
+  background: var(--cs-g100); 
+  border-radius: 4px; 
+  padding: .75rem 1rem; 
+  margin-bottom: 1rem; 
+  font-size: 12.5px; 
+  color: var(--cs-g600); 
+  line-height: 1.7;
+  background: mix($cream, #fff, 70%);
+  border-left: 2px solid $cream-dk;
+  border-radius: 0 4px 4px 0;
+  color: $text-mute;
+
+  strong { 
+    color: var(--cs-g800); 
+    font-weight: 500;
+    color: $text-main;
+  }
+}
+
+.cs-verdict { 
+  font-size: 14px; 
+  color: var(--cs-g800); 
+  line-height: 1.85; 
+  margin-bottom: 1rem;
+
+  strong { 
+    font-weight: 500;
+    color: $wine;
+  }
+}
+
+.cs-chips { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 5px; 
+  margin-bottom: 0; 
+}
+
+.cs-chip { 
+  font-size: 11px; 
+  color: var(--cs-g600); 
+  border: 1px solid var(--cs-g200); 
+  border-radius: 3px; 
+  padding: 2px 8px;
+  border-color: $cream-dk;
+  color: $text-mute;
+
+  &.key { 
+    color: var(--cs-black); 
+    border-color: var(--cs-black);
+    color: $wine;
+    border-color: $wine;
+    background: $wine-bg;
+    font-weight: 500;
+  }
+}
+
+.cs-img-wrap { 
+  margin-top: 1.25rem; 
+}
+
+/* ── IMAGE PLACEHOLDER ── */
+.cs-ph {
+  width: 100%; 
+  background: var(--cs-g100); 
+  border: 1px dashed var(--cs-g300); 
+  border-radius: 6px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center;
+  gap: 6px; 
+  color: var(--cs-g400); 
+  font-size: 11px; 
+  font-family: var(--cs-en); 
+  letter-spacing: .04em;
+  position: relative; 
+  overflow: hidden; 
+  cursor: pointer; 
+  transition: background .2s;
+  background: mix($cream, #fff, 60%);
+  border-color: $cream-dk;
+  color: $text-mute;
+
+  &:hover { 
+    background: var(--cs-g200);
+    background: $cream-dk;
   }
 
-  .cs-di-tag {
-    color: $gold;
-    letter-spacing: 0.14em;
+  img { 
+    position: absolute; 
+    inset: 0; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 6px; 
   }
 
-  .cs-brief {
-    background: mix($cream, #fff, 70%);
-    border-left: 2px solid $cream-dk;
-    border-radius: 0 4px 4px 0;
-    color: $text-mute;
-
-    strong { color: $text-main; }
+  input[type='file'] { 
+    position: absolute; 
+    inset: 0; 
+    opacity: 0; 
+    cursor: pointer; 
+    font-size: 0; 
   }
+}
 
-  .cs-verdict strong {
+.cs-ph-ic { 
+  font-size: 18px; 
+  opacity: .35; 
+}
+
+.h-xl { height: 420px; }
+.h-lg { height: 300px; }
+.h-md { height: 220px; }
+.h-sm { height: 160px; }
+.h-xs { height: 130px; }
+
+/* ── DS / CODE ── */
+.cs-ds-grid { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 1.25rem; 
+  margin-bottom: 1.5rem; 
+}
+
+.cs-ds-card { 
+  border: 1px solid var(--cs-g200); 
+  border-radius: 6px; 
+  overflow: hidden;
+  border-color: $cream-dk;
+  background: #fff;
+}
+
+.cs-ds-hd { 
+  padding: .6rem 1rem; 
+  background: var(--cs-g50); 
+  border-bottom: 1px solid var(--cs-g200); 
+  font-family: var(--cs-en); 
+  font-size: 10px; 
+  font-weight: 500; 
+  letter-spacing: .1em; 
+  text-transform: uppercase; 
+  color: var(--cs-g400);
+  background: mix($cream, #fff, 40%);
+  border-bottom-color: $cream-dk;
+  color: $wine;
+  letter-spacing: 0.1em;
+}
+
+.cs-ds-body { 
+  padding: 1rem; 
+}
+
+/* ── RWD ── */
+.cs-rwd { 
+  display: grid; 
+  grid-template-columns: 2fr 1.2fr .75fr; 
+  gap: 1rem; 
+  margin-bottom: 1.5rem; 
+  align-items: end; 
+}
+
+.cs-rwd-item { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px; 
+}
+
+.cs-rwd-lbl { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  font-family: var(--cs-en); 
+  font-size: 11px;
+
+  strong { 
+    color: var(--cs-black); 
+    font-weight: 500;
     color: $wine;
   }
 
-  // chip 預設 / key 強調
-  .cs-chip {
-    border-color: $cream-dk;
+  span { 
+    color: var(--cs-g400); 
+    font-size: 10px;
     color: $text-mute;
+  }
+}
 
-    &.key {
-      color: $wine;
-      border-color: $wine;
-      background: $wine-bg;
-      font-weight: 500;
-    }
+/* ── CODE BLOCK ── */
+.cs-code { 
+  background: var(--cs-g800); 
+  color: #d4d4d4; 
+  border-radius: 6px; 
+  padding: 1.25rem 1.5rem; 
+  font-family: 'Courier New', monospace; 
+  font-size: 12px; 
+  line-height: 2; 
+  overflow-x: auto; 
+  margin-bottom: 1.5rem;
+  background: darken($wine, 8%);
+  color: mix($cream, #fff, 80%);
+  border-radius: 8px;
+}
+
+.cs-cc { 
+  color: #666;
+  color: mix($wine, $cream, 40%);
+}
+
+.cs-ck { 
+  color: #ccc; 
+  font-weight: 500;
+  color: $gold;
+}
+
+/* ── MISC ── */
+.cs-two-col { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 1rem; 
+}
+
+.cs-lbl-sm { 
+  font-size: 11px; 
+  font-family: var(--cs-en); 
+  color: var(--cs-g400); 
+  letter-spacing: .06em; 
+  text-transform: uppercase; 
+  margin-bottom: .5rem;
+  color: $gold;
+  letter-spacing: 0.1em;
+}
+
+.cs-block { 
+  margin-bottom: 2.5rem; 
+}
+
+.cs-hr { 
+  border: none; 
+  border-top: 1px solid var(--cs-g200); 
+  margin: 3rem 0;
+  border-top-color: $cream-dk;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .cs-container { 
+    padding: 0 1.25rem; 
   }
 
-  // ── IMAGE PLACEHOLDER ──────────────────────────────
-  .cs-ph {
-    background: mix($cream, #fff, 60%);
-    border-color: $cream-dk;
-    color: $text-mute;
-
-    &:hover {
-      background: $cream-dk;
-    }
+  .cs-overview-grid { 
+    grid-template-columns: 1fr 1fr; 
   }
 
-  // ── DS CARD ────────────────────────────────────────
-  .cs-ds-card {
-    border-color: $cream-dk;
-    background: #fff;
+  .cs-sec-hd { 
+    grid-template-columns: 1fr; 
+    gap: .4rem; 
   }
 
-  .cs-ds-hd {
-    background: mix($cream, #fff, 40%);
-    border-bottom-color: $cream-dk;
-    color: $wine;
-    letter-spacing: 0.1em;
+  .cs-sec-num { 
+    padding-top: 0; 
   }
 
-  // ── HR ─────────────────────────────────────────────
-  .cs-hr {
-    border-top-color: $cream-dk;
+  .cs-di { 
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
   }
 
-  // ── CODE BLOCK ─────────────────────────────────────
-  // 把深灰底改成深酒紅底，更有品牌感
-  .cs-code {
-    background: darken($wine, 8%);
-    color: mix($cream, #fff, 80%);
-    border-radius: 8px;
+  .cs-ds-grid, .cs-two-col { 
+    grid-template-columns: 1fr; 
   }
 
-  .cs-cc { color: mix($wine, $cream, 40%); }
-  .cs-ck { color: $gold; font-weight: 500; }
-
-  // ── RWD label ──────────────────────────────────────
-  .cs-rwd-lbl {
-    strong { color: $wine; }
-    span   { color: $text-mute; }
-  }
-
-  // ── lbl-sm ─────────────────────────────────────────
-  .cs-lbl-sm {
-    color: $gold;
-    letter-spacing: 0.1em;
+  .cs-rwd { 
+    grid-template-columns: 1fr; 
   }
 }
